@@ -97,4 +97,30 @@
         yearEl.textContent = '© ' + new Date().getFullYear() + ' Rank Designs. All rights reserved.';
     }
 
+    /* ---------- Portfolio Filter ---------- */
+    var filterBtns = document.querySelectorAll('.filter-btn');
+    var portfolioItems = document.querySelectorAll('.portfolio-item');
+
+    if (filterBtns.length > 0 && portfolioItems.length > 0) {
+        filterBtns.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                // Remove active class from all
+                filterBtns.forEach(function (b) { b.classList.remove('active'); });
+                // Add active class to clicked
+                this.classList.add('active');
+
+                var filterValue = this.getAttribute('data-filter');
+
+                portfolioItems.forEach(function (item) {
+                    var category = item.getAttribute('data-category');
+                    if (filterValue === 'all' || filterValue === category) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    }
+
 })();
