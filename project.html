@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Detail — Rank Designs</title>
+    <meta name="description"
+        content="View our project details and see how Rank Designs delivers creativity that drives results." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="assets/css/portfolio.css">
+    <link rel="stylesheet" href="assets/css/portfolio-modal.css">
+    <style>
+        .project-page-content {
+            padding-top: 0;
+            background: var(--bg);
+        }
+
+        .pm-hero {
+            height: 60vh;
+            min-height: 400px;
+        }
+
+        .pm-content {
+            margin-top: -80px;
+            position: relative;
+            z-index: 10;
+            background: var(--bg);
+            border-radius: 24px 24px 0 0;
+            padding: 4rem 2rem;
+            box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .pm-content {
+                margin-top: -40px;
+                padding: 2rem 1rem;
+            }
+        }
+
+        .back-to-portfolio {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .back-to-portfolio:hover {
+            transform: translateX(-5px);
+        }
+
+        /* Ensure the logo and nav colors work with the hero */
+        #site-header:not(.scrolled) .logo img#logo-light {
+            display: block;
+        }
+
+        #site-header:not(.scrolled) .logo img#logo-dark {
+            display: none;
+        }
+
+        #site-header.scrolled .logo img#logo-light {
+            display: none;
+        }
+
+        #site-header.scrolled .logo img#logo-dark {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header id="site-header">
+        <div class="container-tight header-inner">
+            <a href="index.html" class="logo" aria-label="Rank Designs home">
+                <img id="logo-light" src="assets/images/LogoonBlackDarkBackgrounds.png" alt="Rank Designs logo"
+                    height="80">
+                <img id="logo-dark" src="assets/images/ON WHITE.png" alt="Rank Designs logo" height="60"
+                    style="display:none">
+            </a>
+            <nav class="desktop-nav">
+                <a href="about.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <div class="desktop-cta">
+                <a href="contact.html" id="header-cta" class="btn-header-cta">Get Started</a>
+            </div>
+            <button id="menu-toggle" aria-label="Toggle menu">
+                <svg id="icon-menu" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" y1="12" x2="20" y2="12" />
+                    <line x1="4" y1="6" x2="20" y2="6" />
+                    <line x1="4" y1="18" x2="20" y2="18" />
+                </svg>
+                <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    style="display:none">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+        </div>
+        <div id="mobile-menu">
+            <div class="container-tight mobile-nav">
+                <a href="about.html" class="mobile-link">About</a>
+                <a href="services.html" class="mobile-link">Services</a>
+                <a href="portfolio.html" class="mobile-link">Portfolio</a>
+                <a href="contact.html" class="mobile-link">Contact</a>
+                <a href="contact.html" class="btn-primary mobile-cta">Get Started</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="project-page-content" id="project-container">
+        <!-- Content will be injected here -->
+        <div style="height: 100vh; display: flex; align-items: center; justify-content: center;">
+            <div class="loader">Loading Project...</div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-marquee-wrap">
+            <div class="marquee-track">
+                <span class="marquee-word white">Design</span><span class="marquee-sep">✦</span>
+                <span class="marquee-word accent">Strategy</span><span class="marquee-sep">✦</span>
+                <span class="marquee-word white">Technology</span><span class="marquee-sep">✦</span>
+                <span class="marquee-word accent">Brand</span><span class="marquee-sep">✦</span>
+                <span class="marquee-word white">Growth</span><span class="marquee-sep">✦</span>
+            </div>
+        </div>
+        <div class="container-tight footer-body">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo logo-light" aria-label="Rank Designs home">
+                        <img src="assets/images/LogoonBlackDarkBackgrounds.png" alt="Rank Designs Logo" height="60px">
+                    </a>
+                    <p class="footer-desc">A multidisciplinary creative agency helping brands grow through strategy,
+                        design, and technology.</p>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Navigate</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Our Services</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <!-- ... other footer columns ... -->
+            </div>
+            <div class="footer-bottom">
+                <div id="footer-year"></div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox for Gallery -->
+    <div id="pm-lightbox" class="pm-lightbox">
+        <div class="pm-lightbox-close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </div>
+        <div class="pm-lightbox-content"></div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="assets/js/portfolio-data.js"></script>
+    <script src="assets/js/project-view.js"></script>
+</body>
+
+</html>

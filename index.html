@@ -364,15 +364,15 @@
         <div>
           <h2 class="text-display section-title">Featured Projects.</h2>
         </div>
-        <a href="#contact" class="view-all-link">View Full Portfolio <svg xmlns="http://www.w3.org/2000/svg" width="16"
-            height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round">
+        <a href="portfolio.html" class="view-all-link">View Full Portfolio <svg xmlns="http://www.w3.org/2000/svg"
+            width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
             <line x1="7" y1="17" x2="17" y2="7" />
             <polyline points="7 7 17 7 17 17" />
           </svg></a>
       </div>
       <div class="portfolio-grid">
-        <article class="portfolio-item reveal col-7">
+        <article class="portfolio-item reveal col-7" data-id="northwind" style="cursor: pointer;">
           <div class="portfolio-img" style="background: linear-gradient(135deg,hsl(215,58%,22%),hsl(215,40%,35%))">
             <div class="portfolio-placeholder"><span>Branding</span></div>
           </div>
@@ -382,7 +382,7 @@
           </div>
           <div class="portfolio-tag-badge"><span class="tag-dot"></span>Branding</div>
         </article>
-        <article class="portfolio-item reveal col-5">
+        <article class="portfolio-item reveal col-5" data-id="helix" style="cursor: pointer;">
           <div class="portfolio-img" style="background: linear-gradient(135deg,hsl(215,60%,15%),hsl(108,60%,25%))">
             <div class="portfolio-placeholder"><span>ICT · Product</span></div>
           </div>
@@ -392,7 +392,7 @@
           </div>
           <div class="portfolio-tag-badge"><span class="tag-dot"></span>Product · ICT</div>
         </article>
-        <article class="portfolio-item reveal col-5">
+        <article class="portfolio-item reveal col-5" data-id="cadence" style="cursor: pointer;">
           <div class="portfolio-img" style="background: linear-gradient(135deg,hsl(108,80%,20%),hsl(150,60%,30%))">
             <div class="portfolio-placeholder"><span>Marketing</span></div>
           </div>
@@ -402,7 +402,7 @@
           </div>
           <div class="portfolio-tag-badge"><span class="tag-dot"></span>Marketing</div>
         </article>
-        <article class="portfolio-item reveal col-7">
+        <article class="portfolio-item reveal col-7" data-id="atlas" style="cursor: pointer;">
           <div class="portfolio-img" style="background: linear-gradient(135deg,hsl(260,40%,25%),hsl(215,58%,30%))">
             <div class="portfolio-placeholder"><span>Print · Media</span></div>
           </div>
@@ -616,6 +616,17 @@
   </div>
 
   <script src="script.js"></script>
+  <script>
+    // Bind featured portfolio cards on index page
+    document.querySelectorAll('.portfolio-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        const id = item.getAttribute('data-id');
+        if (id) {
+          window.location.href = `project.html?id=${id}`;
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>
