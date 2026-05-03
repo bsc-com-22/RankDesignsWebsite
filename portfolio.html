@@ -3,13 +3,14 @@
 
 <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rank Designs — Creativity that Drives Results</title>
+    <title>Portfolio — Rank Designs | Our Work &amp; Case Studies</title>
     <meta name="description"
-        content="Rank Designs is a creative agency helping ambitious brands grow through design, technology, and strategy." />
-    <meta property="og:title" content="Rank Designs — Creativity that Drives Results" />
+        content="Browse Rank Designs' full portfolio of branding, ICT, digital marketing, media and creative production projects across Malawi and beyond." />
+    <meta property="og:title" content="Portfolio — Rank Designs" />
     <meta property="og:description"
-        content="A creative agency helping ambitious brands grow through design, technology, and strategy." />
+        content="A curated showcase of our best work across design, technology, marketing and media." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,6 +19,219 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="assets/css/portfolio.css">
     <link rel="stylesheet" href="assets/css/portfolio-modal.css">
+
+    <style>
+        /* ── Portfolio page-specific enhancements ── */
+
+        /* Decorative number strip */
+        .portfolio-stats-strip {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 3rem 0;
+            position: relative;
+            z-index: 5;
+        }
+
+        .portfolio-stats-inner {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+
+        @media (min-width: 640px) {
+            .portfolio-stats-inner {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .p-stat {
+            border-left: 1px solid var(--border);
+            padding-left: 1.5rem;
+            text-align: left;
+            transition: transform 0.3s ease;
+        }
+
+        .p-stat:hover {
+            transform: translateY(-3px);
+        }
+
+        .p-stat:first-child {
+            border-left: none;
+            padding-left: 0;
+        }
+
+        .p-stat-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.04em;
+            line-height: 1;
+        }
+
+        .p-stat-num span {
+            color: var(--accent);
+        }
+
+        .p-stat-label {
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        /* Section intro refine */
+        .portfolio-intro {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (min-width: 768px) {
+            .portfolio-intro {
+                flex-direction: row;
+                align-items: flex-end;
+                justify-content: space-between;
+                gap: 3rem;
+            }
+        }
+
+        /* Project count badge refine */
+        .project-count-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(var(--accent-rgb, 108, 255, 114), 0.08);
+            border: 1px solid rgba(var(--accent-rgb, 108, 255, 114), 0.2);
+            border-radius: 999px;
+            padding: 0.6rem 1.4rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            white-space: nowrap;
+            flex-shrink: 0;
+            backdrop-filter: blur(4px);
+        }
+
+        .project-count-badge .count-dot {
+            width: 0.55rem;
+            height: 0.55rem;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent);
+        }
+
+        /* Filter refinements */
+        .filter-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--muted);
+            margin-bottom: 1.25rem;
+            display: block;
+        }
+
+        /* Loading state */
+        .portfolio-loading {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem;
+            gap: 1.5rem;
+        }
+
+        .loading-spinner {
+            width: 3.5rem;
+            height: 3.5rem;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            font-size: 0.9rem;
+            color: var(--muted);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        /* Empty state */
+        .portfolio-empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+
+        .portfolio-empty svg {
+            color: var(--border);
+            margin-bottom: 1.5rem;
+            opacity: 0.5;
+        }
+
+        .portfolio-empty h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .portfolio-empty p {
+            font-size: 1rem;
+            color: var(--muted);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* Subtle section separator */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--border), transparent);
+            margin: 0;
+            opacity: 0.6;
+        }
+
+        /* Hero badge animations */
+        .portfolio-hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            padding: 0.5rem 1.25rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .portfolio-hero-badge .badge-pip {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        /* Final section tweaks */
+        .portfolio-section {
+            padding: 6rem 0 8rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -28,15 +242,16 @@
             <a href="index.html" class="logo" aria-label="Rank Designs home">
                 <!-- Shown when header is transparent (over hero) -->
                 <img id="logo-light" src="assets/images/LogoonBlackDarkBackgrounds.png" alt="Rank Designs logo"
-                    height="80">
+                    height="60">
                 <!-- Shown when header is scrolled (white background) -->
-                <img id="logo-dark" src="assets/images/ON WHITE.png" alt="Rank Designs logo" height="60"
-                    style="display:none">
+                <img id="logo-dark" src="assets/images/ON WHITE.png" alt="Rank Designs logo" style="display:none"
+                    height="60">
             </a>
             <nav class="desktop-nav">
+                <a href="index.html">Home</a>
                 <a href="about.html">About</a>
                 <a href="services.html">Services</a>
-                <a href="portfolio.html" class="active">Portfolio</a>
+                <a href="portfolio.html" class="active">Portfolio / Projects</a>
                 <a href="contact.html">Contact</a>
             </nav>
             <div class="desktop-cta">
@@ -59,9 +274,10 @@
         </div>
         <div id="mobile-menu">
             <div class="container-tight mobile-nav">
+                <a href="index.html" class="mobile-link">Home</a>
                 <a href="about.html" class="mobile-link">About</a>
                 <a href="services.html" class="mobile-link">Services</a>
-                <a href="portfolio.html" class="mobile-link active">Portfolio</a>
+                <a href="portfolio.html" class="mobile-link active">Portfolio / Projects</a>
                 <a href="contact.html" class="mobile-link">Contact</a>
                 <a href="contact.html" class="btn-primary mobile-cta">Get Started</a>
             </div>
@@ -69,7 +285,7 @@
     </header>
 
     <!-- HERO -->
-    <section id="top" class="hero">
+    <section id="top" class="hero" style="height: 60vh">
         <div class="hero-bg">
             <img src="assets/images/hero.jpeg" alt="" aria-hidden="true" class="hero-bg-img">
             <div class="hero-overlay"></div>
@@ -79,79 +295,46 @@
         <div class="container-tight hero-content">
             <div class="hero-inner">
                 <h1 class="text-display animate-fade-in-slow">
-                    Our Portfolio
+                    Our <span class="gradient-text">Work
+                        <svg class="underline-svg" viewBox="0 0 300 12" preserveAspectRatio="none" aria-hidden="true">
+                            <path d="M2 8 Q 150 -2 298 6" stroke="hsl(108,100%,45%)" stroke-width="2" fill="none"
+                                stroke-linecap="round" />
+                        </svg>
+                    </span>
                 </h1>
-                <p class="hero-sub animate-fade-in-slow anim-delay-200">
-                    Here's a selection of our recent work for clients across different industries.
+                <p class="hero-sub animate-fade-in-slow anim-delay-200" style="max-width: 550px;">
+                    A curated selection of our recent work — brands elevated, platforms built & stories told across
+                    industries.
                 </p>
+            </div>
+        </div>
     </section>
 
     <!-- PORTFOLIO -->
     <section id="portfolio" class="portfolio-section">
         <div class="container-tight">
             <!-- Filter Bar -->
-            <div class="portfolio-filter animate-fade-in-slow">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="branding">Branding</button>
-                <button class="filter-btn" data-filter="product-ict">Product · ICT</button>
-                <button class="filter-btn" data-filter="marketing">Marketing</button>
-                <button class="filter-btn" data-filter="print-media">Print · Media</button>
+            <div class="portfolio-filter-wrap reveal">
+                <span class="filter-label">Filter by discipline</span>
+                <div class="portfolio-filter" id="portfolio-filter-bar" role="group"
+                    aria-label="Filter portfolio by category">
+                    <button class="filter-btn active" data-filter="all" id="filter-all">All Work</button>
+                    <button class="filter-btn" data-filter="design" id="filter-design">Design &amp; Branding</button>
+                    <button class="filter-btn" data-filter="ict" id="filter-ict">ICT Solutions</button>
+                    <button class="filter-btn" data-filter="marketing" id="filter-marketing">Marketing</button>
+                    <button class="filter-btn" data-filter="media" id="filter-media">Media</button>
+                </div>
             </div>
 
-            <div class="portfolio-grid">
-                <article class="portfolio-item reveal col-7" data-category="branding" data-id="northwind"
-                    style="cursor: pointer;">
-                    <div class="portfolio-img"
-                        style="background: linear-gradient(135deg,hsl(215,58%,22%),hsl(215,40%,35%))">
-                        <div class="portfolio-placeholder"><span>Branding</span></div>
-                    </div>
-                    <div class="portfolio-overlay"></div>
-                    <div class="portfolio-hover-info">
-                        <div class="portfolio-tag-hover">Branding</div>
-                        <h3>Northwind Identity</h3>
-                    </div>
-                    <div class="portfolio-tag-badge"><span class="tag-dot"></span>Branding</div>
-                </article>
-                <article class="portfolio-item reveal col-5" data-category="product-ict" data-id="helix"
-                    style="cursor: pointer;">
-                    <div class="portfolio-img"
-                        style="background: linear-gradient(135deg,hsl(215,60%,15%),hsl(108,60%,25%))">
-                        <div class="portfolio-placeholder"><span>ICT · Product</span></div>
-                    </div>
-                    <div class="portfolio-overlay"></div>
-                    <div class="portfolio-hover-info">
-                        <div class="portfolio-tag-hover">Product · ICT</div>
-                        <h3>Helix Analytics</h3>
-                    </div>
-                    <div class="portfolio-tag-badge"><span class="tag-dot"></span>Product · ICT</div>
-                </article>
-                <article class="portfolio-item reveal col-5" data-category="marketing" data-id="cadence"
-                    style="cursor: pointer;">
-                    <div class="portfolio-img"
-                        style="background: linear-gradient(135deg,hsl(108,80%,20%),hsl(150,60%,30%))">
-                        <div class="portfolio-placeholder"><span>Marketing</span></div>
-                    </div>
-                    <div class="portfolio-overlay"></div>
-                    <div class="portfolio-hover-info">
-                        <div class="portfolio-tag-hover">Marketing</div>
-                        <h3>Cadence Campaign</h3>
-                    </div>
-                    <div class="portfolio-tag-badge"><span class="tag-dot"></span>Marketing</div>
-                </article>
-                <article class="portfolio-item reveal col-7" data-category="print-media" data-id="atlas"
-                    style="cursor: pointer;">
-                    <div class="portfolio-img"
-                        style="background: linear-gradient(135deg,hsl(260,40%,25%),hsl(215,58%,30%))">
-                        <div class="portfolio-placeholder"><span>Print · Media</span></div>
-                    </div>
-                    <div class="portfolio-overlay"></div>
-                    <div class="portfolio-hover-info">
-                        <div class="portfolio-tag-hover">Print · Media</div>
-                        <h3>Atlas Editorial</h3>
-                    </div>
-                    <div class="portfolio-tag-badge"><span class="tag-dot"></span>Print · Media</div>
-                </article>
+            <!-- Grid -->
+            <div class="portfolio-grid" id="portfolio-grid" aria-label="Portfolio projects">
+                <!-- Loading state -->
+                <div class="portfolio-loading" id="portfolio-loading">
+                    <div class="loading-spinner"></div>
+                    <p class="loading-text">Loading amazing work…</p>
+                </div>
             </div>
+
         </div>
     </section>
 
@@ -175,41 +358,30 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="site-footer">
-        <div class="footer-marquee-wrap">
-            <div class="marquee-track">
-                <span class="marquee-word white">Design</span><span class="marquee-sep">✦</span>
-                <span class="marquee-word accent">Strategy</span><span class="marquee-sep">✦</span>
-                <span class="marquee-word white">Technology</span><span class="marquee-sep">✦</span>
-                <span class="marquee-word accent">Brand</span><span class="marquee-sep">✦</span>
-                <span class="marquee-word white">Growth</span><span class="marquee-sep">✦</span>
-                <span class="marquee-word accent">Design</span><span class="marquee-sep">✦</span>
-                <span class="marquee-word white">Strategy</span><span class="marquee-sep">✦</span>
-                <span class="marquee-word accent">Technology</span><span class="marquee-sep">✦</span>
-                <span class="marquee-word white">Brand</span><span class="marquee-sep">✦</span>
-                <span class="marquee-word accent">Growth</span><span class="marquee-sep">✦</span>
-            </div>
-        </div>
+                            <footer class="site-footer">
         <div class="container-tight footer-body">
             <div class="footer-grid">
+                <!-- Left: Brand -->
                 <div class="footer-brand">
                     <a href="index.html" class="logo logo-light" aria-label="Rank Designs home">
-                        <img src="assets/images/LogoonBlackDarkBackgrounds.png" alt="Rank Designs Logo" height="60px">
+                        <img src="assets/images/LogoonBlackDarkBackgrounds.png" alt="Rank Designs Logo" height="80px">
                     </a>
-                    <p class="footer-desc">A multidisciplinary creative agency helping brands grow through strategy,
-                        design, and
-                        technology.</p>
+                    <div class="footer-legal-info">
+                        <p>A multidisciplinary creative agency helping brands grow through strategy, design, and technology.</p>
+                        <p>Blantyre, Malawi</p>
+                    </div>
+                </div>
+
+                <!-- Col 1: CONTACT -->
+                <div class="footer-col section-contact">
+                    <h4 class="footer-col-title">CONTACT</h4>
+                    <div class="footer-contact-details">
+                        <p>Phone: +265 881 060 045</p>
+                        <p>Email: <a href="mailto:info@rankdesigns.art">info@rankdesigns.art</a></p>
+                        <p>Location: Blantyre, Malawi, P.O Box 413</p>
+                    </div>
                     <div class="footer-socials">
-                        <a href="#" class="social-link" aria-label="LinkedIn">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path
-                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                                <rect x="2" y="9" width="4" height="12" />
-                                <circle cx="4" cy="4" r="2" />
-                            </svg>
-                        </a>
-                        <a href="#" class="social-link" aria-label="Instagram">
+                        <a href="#" class="social-icon-circle" aria-label="Instagram">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
@@ -217,55 +389,59 @@
                                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
                             </svg>
                         </a>
-                        <a href="#" class="social-link" aria-label="Twitter">
+                        <a href="#" class="social-icon-circle" aria-label="Twitter">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path
-                                    d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
+                                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
                             </svg>
                         </a>
-                        <a href="#" class="social-link" aria-label="Facebook">
+                        <a href="#" class="social-icon-circle" aria-label="Facebook">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
                             </svg>
                         </a>
+                        <a href="#" class="social-icon-circle" aria-label="LinkedIn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                                <rect x="2" y="9" width="4" height="12" />
+                                <circle cx="4" cy="4" r="2" />
+                            </svg>
+                        </a>
                     </div>
                 </div>
+
+                <!-- Col 2: ABOUT -->
                 <div class="footer-col">
-                    <h4 class="footer-col-title">Navigate</h4>
+                    <h4 class="footer-col-title">ABOUT</h4>
                     <ul>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="services.html">Our Services</a></li>
+                        <li><a href="about.html">Our work</a></li>
+                        <li><a href="services.html">Services</a></li>
                         <li><a href="portfolio.html">Portfolio</a></li>
                         <li><a href="contact.html">Contact Us</a></li>
                     </ul>
                 </div>
+
+                <!-- Col 3: INFORMATION -->
                 <div class="footer-col">
-                    <h4 class="footer-col-title">Services</h4>
+                    <h4 class="footer-col-title">INFORMATION</h4>
                     <ul>
-                        <li><a href="graphic-design.html">Branding</a></li>
+                        <li><a href="creative-design-branding.html">Design & Branding</a></li>
                         <li><a href="ict-solutions.html">ICT Solutions</a></li>
-                        <li><a href="digital-marketing.html">Marketing</a></li>
+                        <li><a href="content-digital-marketing.html">Marketing</a></li>
                         <li><a href="media-consultancy.html">Media</a></li>
-                        <li><a href="commercial-printing.html">Printing</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4 class="footer-col-title">Reach Us</h4>
-                    <ul>
-                        <li><a href="mailto:info@rankdesigns.art">info@rankdesigns.art</a></li>
-                        <li>+265 999 010 284</li>
-                        <li>+265 888 010 284</li>
-                        <li>Blantyre, Malawi</li>
+                        <li><a href="creative-production.html">Creative Production</a></li>
                     </ul>
                 </div>
             </div>
+
             <div class="footer-bottom">
-                <div id="footer-year"></div>
-                <div class="footer-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
+                <div class="footer-bottom-left">
+                    <span>© <span id="footer-year"></span> Rank Designs. All rights reserved.</span>
+                </div>
+                <div class="footer-bottom-right">
+                    <span>Creativity that <span style="color: var(--accent)">Drives Results</span></span>
                 </div>
             </div>
         </div>
@@ -277,18 +453,42 @@
         <p>Thanks — we'll get back to you within one business day.</p>
     </div>
 
+    <script src="assets/js/cloudinary-utils.js"></script>
     <script src="script.js"></script>
     <script src="assets/js/portfolio-data.js"></script>
+    <script src="assets/js/portfolio-renderer.js"></script>
+
+    <!-- Update project count badge once rendered -->
     <script>
-        // Bind original portfolio cards to the new project page
-        document.querySelectorAll('.portfolio-item').forEach(item => {
-            item.addEventListener('click', (e) => {
-                const id = item.getAttribute('data-id');
-                if (id) {
-                    window.location.href = `project.html?id=${id}`;
+        (function () {
+            function updateCountBadge() {
+                const badge = document.getElementById('project-count-text');
+                if (!badge) return;
+                const grid = document.getElementById('portfolio-grid');
+                if (!grid) return;
+                const items = grid.querySelectorAll('.portfolio-item');
+                const count = items.length;
+                badge.textContent = count + ' Project' + (count !== 1 ? 's' : '');
+            }
+
+            // Poll briefly until portfolio-renderer.js has populated the grid
+            let attempts = 0;
+            const poll = setInterval(function () {
+                const grid = document.getElementById('portfolio-grid');
+                if (grid && grid.querySelectorAll('.portfolio-item').length > 0) {
+                    updateCountBadge();
+                    clearInterval(poll);
+                }
+                if (++attempts > 40) clearInterval(poll); // stop after 4s
+            }, 100);
+
+            // Also re-run on filter button clicks to reflect filtered count
+            document.addEventListener('click', function (e) {
+                if (e.target.classList.contains('filter-btn')) {
+                    setTimeout(updateCountBadge, 350);
                 }
             });
-        });
+        })();
     </script>
 </body>
 

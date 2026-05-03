@@ -3,20 +3,22 @@ const path = require('path');
 
 const services = [
     {
-        id: "graphic-design",
-        title: "Graphic Design & Branding",
-        desc: "Identity systems, logos, and visual languages that make brands unforgettable. A full detailed explanation of our graphic design and branding service. We dive deep into your company's core values to produce an identity that resonates with your target audience and distinguishes you in the market.",
+        id: "creative-design-branding",
+        title: "Creative Design & Branding",
+        desc: "We create strong and memorable brand identities through strategic design and creative concept development. By understanding your brand's values and audience, we develop visual concepts and branding solutions that help you stand out, connect, and leave a lasting impression.",
         offerings: [
-            "Logo Design",
-            "Brand Identity Creation",
-            "Packaging Design",
-            "Company Profiles",
-            "Event Branding"
+            "Brand Identity Development",
+            "Event Branding",
+            "Visual Language & Style Guides",
+            "Concept Development",
+            "Social Media Creative Design",
+            "Marketing & Promotional Materials",
+            "Print & Digital Design"
         ],
         portfolio: [
-            { title: "Northwind Identity", desc: "Complete brand overhaul and stationary.", img: "linear-gradient(135deg,hsl(215,58%,22%),hsl(215,40%,35%))", tag: "Branding" },
-            { title: "Echo Packaging", desc: "Product packaging and labels.", img: "linear-gradient(135deg,hsl(280,40%,30%),hsl(280,50%,20%))", tag: "Design" },
-            { title: "Summit Profile", desc: "Corporate profile design.", img: "linear-gradient(135deg,hsl(10,50%,30%),hsl(10,60%,40%))", tag: "Company Profile" }
+            { title: "NCHE Intake Campaign", desc: "Full campaign creative rollout.", img: "url('assets/images/projects/NCHE/NCHE 2026 INTAKE-01.jpg') center/cover", tag: "Design" },
+            { title: "ACH Brand Identity", desc: "Comprehensive 35-page style guide.", img: "url('assets/images/projects/ACH RA/ACH BRAND BRIEF GUIDELINE-02-01.jpg') center/cover", tag: "Branding" },
+            { title: "Hillstor Paints", desc: "Brand identity & product packaging.", img: "url('assets/images/projects/HILLSTOR PAINTS/hILLS.jpg.jpeg') center/cover", tag: "Identity" }
         ]
     },
     {
@@ -31,13 +33,14 @@ const services = [
             "Data Security"
         ],
         portfolio: [
-            { title: "Helix Analytics", desc: "Custom web dashboard and API.", img: "linear-gradient(135deg,hsl(215,60%,15%),hsl(108,60%,25%))", tag: "Web Dev" },
-            { title: "CloudSync App", desc: "Mobile application development.", img: "linear-gradient(135deg,hsl(200,60%,20%),hsl(200,70%,30%))", tag: "App Dev" }
+            { title: "ACH Limited Website", desc: "Corporate website redesign.", img: "url('assets/images/projects/ACH WEBSITE/ICT _ACH.png') center/cover", tag: "Web Dev" },
+            { title: "Outple HR Platform", desc: "Scalable recruitment system.", img: "url('assets/images/projects/Outple/OUTPLE 1.png') center/cover", tag: "System" },
+            { title: "XRoads Health", desc: "Booking & Patient Management.", img: "url('assets/images/projects/X ROADS HEALTH/ICT 1...X ROADS.png') center/cover", tag: "App" }
         ]
     },
     {
-        id: "digital-marketing",
-        title: "Digital Marketing",
+        id: "content-digital-marketing",
+        title: "Content & Digital Marketing",
         desc: "Performance campaigns, SEO, and social strategies that turn reach into revenue. We leverage data-driven insights and creative storytelling to maximize your online presence and engage with your ideal customers.",
         offerings: [
             "Search Engine Optimization (SEO)",
@@ -47,8 +50,8 @@ const services = [
             "Content Strategy"
         ],
         portfolio: [
-            { title: "Cadence Campaign", desc: "Multi-channel marketing strategy.", img: "linear-gradient(135deg,hsl(108,80%,20%),hsl(150,60%,30%))", tag: "Marketing" },
-            { title: "Velocity SEO", desc: "Search engine optimization for retail.", img: "linear-gradient(135deg,hsl(40,80%,30%),hsl(45,80%,40%))", tag: "SEO" }
+            { title: "Pinnacle Financial", desc: "Global Money Week Campaign.", img: "url('assets/images/projects/PINNACLE FINANCIAL SERVICES/GMW 2026 THEME.jpg') center/cover", tag: "Marketing" },
+            { title: "NCHE Social Campaign", desc: "Intake awareness & engagement.", img: "url('assets/images/projects/NCHE/NCHE PROGRAM RADIO.jpg') center/cover", tag: "Social" }
         ]
     },
     {
@@ -63,24 +66,23 @@ const services = [
             "Media Planning"
         ],
         portfolio: [
-            { title: "Atlas Editorial", desc: "Brand storytelling and media plan.", img: "linear-gradient(135deg,hsl(260,40%,25%),hsl(215,58%,30%))", tag: "Editorial" },
-            { title: "Prism PR", desc: "Public relations campaign execution.", img: "linear-gradient(135deg,hsl(330,50%,30%),hsl(330,60%,20%))", tag: "PR" }
+            { title: "Editorial Photography", desc: "High-end brand & event visuals.", img: "url('assets/images/projects/PHOTOGRAPHY/_MG_4698.jpg') center/cover", tag: "Photography" },
+            { title: "IPMM Awards Reel", desc: "Event coverage & content creation.", img: "url('assets/images/projects/IPMM/A.jpg') center/cover", tag: "Media" }
         ]
     },
     {
-        id: "commercial-printing",
-        title: "Commercial Printing",
-        desc: "Premium print production — brochures, packaging, signage, and more. From high-quality brochures to large format banners, we provide comprehensive printing services that bring your designs to life tangibly.",
+        id: "creative-production",
+        title: "Creative Production",
+        desc: "We offer top-quality production services for audio, visual, motion graphics and print. We ensure your message is communicated consistently and professionally across every platform your audience uses.",
         offerings: [
-            "Brochures & Flyers",
-            "Business Cards",
-            "Large Format Printing",
-            "Signage",
-            "Promotional Items"
+            "Commercial Printing",
+            "Audio Production",
+            "Motion Graphics",
+            "Video Editing"
         ],
         portfolio: [
-            { title: "Nova Signage", desc: "Large format outdoor signage.", img: "linear-gradient(135deg,hsl(180,40%,20%),hsl(180,50%,30%))", tag: "Signage" },
-            { title: "Vertex Brochures", desc: "Premium corporate brochures.", img: "linear-gradient(135deg,hsl(0,50%,30%),hsl(0,60%,40%))", tag: "Printing" }
+            { title: "F&N Event Banners", desc: "Large scale event print production.", img: "url('assets/images/projects/F&N BUSINESS CONSULTANTS 14TH ANNIVESARY EVENT BRANDING/Roll_up_Mockup_OK.jpg') center/cover", tag: "Print" },
+            { title: "Hillstor Signage", desc: "Outdoor media & production.", img: "url('assets/images/projects/HILLSTOR PAINTS/hILLS.jpg.jpeg') center/cover", tag: "Production" }
         ]
     }
 ];

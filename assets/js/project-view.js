@@ -9,10 +9,10 @@
 
     if (!projectId || !window.portfolioData || !window.portfolioData[projectId]) {
         container.innerHTML = `
-            <div class="container-tight" style="padding: 10rem 2rem; text-align: center;">
+            <div class="container-tight" style="padding: 15rem 2rem; text-align: center;">
                 <h1 class="text-display">Project Not Found</h1>
-                <p style="margin: 2rem 0;">Sorry, we couldn't find the project you're looking for.</p>
-                <a href="portfolio.html" class="btn-accent">Back to Portfolio</a>
+                <p style="margin: 2rem 0; font-size: 1.25rem;">Sorry, we couldn't find the project you're looking for.</p>
+                <a href="portfolio.html" class="btn-accent" style="padding: 1rem 2.5rem; text-decoration:none;">Back to Portfolio</a>
             </div>
         `;
         return;
@@ -24,14 +24,25 @@
     document.title = `${data.title} — Rank Designs`;
 
     const buildGallery = (gallery) => {
-        return gallery.map(item => `
-            <div class="pm-gallery-item" data-type="${item.type}" data-src="${item.url}">
-                ${item.type === 'video' ? `<video src="${item.url}" muted loop playsinline></video>` : `<img src="${item.url}" alt="Portfolio piece">`}
-                <div class="overlay-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                </div>
-            </div>
-        `).join('');
+        return gallery.map(item => {
+            if (item.type === 'video') {
+                return `
+                    <div class="pm-gallery-item pm-gallery-video" data-type="video" data-src="${item.url}">
+                        <video src="${item.url}" muted loop playsinline preload="metadata"></video>
+                        <div class="overlay-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        </div>
+                    </div>`;
+            }
+            const optimizedUrl = (typeof getImageUrl === 'function') ? getImageUrl(item.url) : item.url;
+            return `
+                <div class="pm-gallery-item" data-type="image" data-src="${optimizedUrl}">
+                    <img src="${optimizedUrl}" alt="Portfolio piece" loading="lazy">
+                    <div class="overlay-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                    </div>
+                </div>`;
+        }).join('');
     };
 
     let contentHtml = '';
@@ -39,22 +50,23 @@
         contentHtml = `
             <div class="pm-grid">
                 <div>
-                    <h3 class="pm-section-title">Overview</h3>
-                    <p class="pm-text" style="margin-bottom: 2rem;">${data.overview}</p>
+                    <span class="label-tag accent-label">· Overview</span>
+                    <h3 class="section-title" style="margin-top:0.5rem; font-size:1.8rem; margin-bottom:1rem;">About this Project</h3>
+                    <p class="section-body" style="margin-bottom: 2rem;">${data.overview}</p>
                     
-                    <h3 class="pm-section-title">The Challenge</h3>
-                    <p class="pm-text">${data.problem}</p>
+                    <h3 class="section-title" style="font-size:1.8rem; margin-bottom:1rem;">The Challenge</h3>
+                    <p class="section-body">${data.problem}</p>
                 </div>
                 <div>
-                    <h3 class="pm-section-title">Our Solution</h3>
-                    <p class="pm-text" style="margin-bottom: 2rem;">${data.solution}</p>
+                    <h3 class="section-title" style="font-size:1.8rem; margin-bottom:1rem;">Our Solution</h3>
+                    <p class="section-body" style="margin-bottom: 2rem;">${data.solution}</p>
                     
-                    <h3 class="pm-section-title">Results / Achievements</h3>
+                    <h3 class="section-title" style="font-size:1.8rem; margin-bottom:1rem;">Results / Achievements</h3>
                     <ul class="pm-results">
                         ${data.results.map(r => `
                             <li>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                ${r}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                <span>${r}</span>
                             </li>
                         `).join('')}
                     </ul>
@@ -65,59 +77,81 @@
         contentHtml = `
             <div class="pm-simple-grid">
                 <div>
-                    <h3 class="pm-section-title">About this project</h3>
-                    <p class="pm-text">${data.desc}</p>
+                    <span class="label-tag accent-label">· Overview</span>
+                    <h3 class="section-title" style="margin-top:0.5rem; font-size:1.8rem; margin-bottom:1rem;">About this project</h3>
+                    <p class="section-body">${data.desc}</p>
                 </div>
                 <div></div>
             </div>
         `;
     }
 
+    const heroImg = (typeof getImageUrl === 'function' && data.coverImg) ? getImageUrl(data.coverImg) : data.coverImg;
+    const heroStyle = heroImg ? `background: url('${heroImg}') center/cover no-repeat; opacity: 0.45; position: absolute; inset: 0;` : `background: ${data.bgGradient}; position: absolute; inset: 0; opacity: 0.45;`;
+
     container.innerHTML = `
-        <div class="pm-hero">
-            <div class="pm-hero-bg" style="background: ${data.bgGradient}"></div>
-            <div class="pm-hero-overlay"></div>
-            <div class="container-tight pm-hero-content">
-                <h1 class="pm-title animate-fade-in">${data.title}</h1>
-                <div class="pm-meta animate-fade-in anim-delay-200">
-                    <span>${data.category}</span>
-                    <span class="meta-sep">•</span>
-                    ${data.type === 'case_study' ? '<span>Case Study</span>' : '<span>Media Project</span>'}
+        <section class="hero" style="min-height: 50vh;">
+            <div class="hero-bg">
+                <div style="${heroStyle}"></div>
+                <div class="hero-overlay"></div>
+                ${heroImg ? '<div class="hero-radial"></div>' : ''}
+            </div>
+            <div class="hero-float-accent" aria-hidden="true"></div>
+            <div class="container-tight hero-content" style="padding-top: 8rem; padding-bottom: 4rem;">
+                <div class="hero-inner">
+                    <a href="portfolio.html" style="display:inline-flex; align-items:center; gap:0.5rem; color:var(--accent); font-weight:600; font-size:0.875rem; margin-bottom:2.5rem; text-decoration:none; transition: color 0.3s ease;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--accent)'">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                        Back to Portfolio
+                    </a>
+                    <div class="animate-fade-in-slow" style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                        <span class="label-tag accent-label">${data.category}</span>
+                        ${data.type === 'case_study' ? '<span class="label-tag" style="background:transparent; border: 1px solid var(--border);">Case Study</span>' : '<span class="label-tag" style="background:transparent; border: 1px solid var(--border);">Media Project</span>'}
+                    </div>
+                    <h1 class="text-display animate-fade-in-slow anim-delay-200" style="font-size: clamp(2.5rem, 6vw, 4.5rem);">
+                        ${data.title}
+                    </h1>
                 </div>
             </div>
-        </div>
-        <div class="container-tight pm-content">
-            <a href="portfolio.html" class="back-to-portfolio">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                Back to Portfolio
-            </a>
-            
-            ${contentHtml}
+        </section>
+        
+        <section style="padding: 6rem 0; background: var(--bg);">
+            <div class="container-tight">
+                <div class="reveal">
+                    ${contentHtml}
+                </div>
 
-            <div class="pm-gallery">
-                <h3 class="pm-section-title">Project Gallery</h3>
-                <div class="pm-gallery-grid">
-                    ${buildGallery(data.gallery)}
+                <div class="pm-gallery reveal" style="margin-top: 6rem;">
+                    <span class="label-tag accent-label">· Project Media</span>
+                    <h2 class="section-title" style="margin-top: 0.5rem; font-size: 2.2rem; margin-bottom: 2.5rem;">Gallery Highlights</h2>
+                    <div class="pm-gallery-grid">
+                        ${buildGallery(data.gallery)}
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div class="pm-cta-wrapper">
-                <h2 class="pm-section-title" style="font-size: 2.5rem; color: var(--fg); margin-bottom: 1.5rem;">Have a similar project in mind?</h2>
-                <p style="margin-bottom: 2.5rem; color: var(--fg-muted); font-size: 1.125rem;">Let's discuss how we can bring your vision to life with our expertise in ${data.category}.</p>
-                <a href="contact.html" class="btn-primary" style="display: inline-flex; align-items:center; gap:0.5rem; padding: 1rem 2.5rem;">
-                    Start a Project
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </a>
+        <section class="cta-section">
+            <div class="container-tight">
+                <div class="cta-box reveal">
+                    <div class="cta-glow-left" aria-hidden="true"></div>
+                    <div class="cta-glow-right" aria-hidden="true"></div>
+                    <div class="cta-inner">
+                        <span class="label-tag accent-label">· Let's build</span>
+                        <h2 class="text-display cta-title">Have a similar project in mind?</h2>
+                        <p class="cta-sub">Let's discuss how we can bring your vision to life with our expertise in <strong>${data.category.split(' & ')[0]}</strong>.</p>
+                        <a href="contact.html" class="btn-accent cta-btn">Get Started</a>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
     `;
 
     // Lightbox Logic
     const openLightbox = (type, src) => {
         if (type === 'video') {
-            lightboxContent.innerHTML = `<video controls autoplay><source src="${src}"></video>`;
+            lightboxContent.innerHTML = `<video controls autoplay class="animate-fade-in"><source src="${src}"></video>`;
         } else {
-            lightboxContent.innerHTML = `<img src="${src}" alt="Gallery Image">`;
+            lightboxContent.innerHTML = `<img src="${src}" alt="Gallery Image" class="animate-fade-in">`;
         }
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -126,7 +160,7 @@
     const closeLightbox = () => {
         lightbox.classList.remove('active');
         document.body.style.overflow = '';
-        setTimeout(() => lightboxContent.innerHTML = '', 300);
+        setTimeout(() => lightboxContent.innerHTML = '', 400); // Wait for transition
     };
 
     lightbox.addEventListener('click', (e) => {
@@ -138,5 +172,12 @@
             openLightbox(item.getAttribute('data-type'), item.getAttribute('data-src'));
         });
     });
+
+    // Automatically trigger intersection observer for injected elements
+    if (window.revealObserver) {
+        container.querySelectorAll('.reveal').forEach(el => {
+            window.revealObserver.observe(el);
+        });
+    }
 
 })();
